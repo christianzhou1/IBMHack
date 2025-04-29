@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 function App() {
   const [prompt, setPrompt] = useState("");
@@ -32,12 +33,7 @@ function App() {
         onChange={(e) => setPrompt(e.target.value)}
         placeholder="Enter your prompt..."
       />
-      <button
-        className="mt-2 px-4 py-2 bg-blue-600 text-white rounded"
-        onClick={handleSubmit}
-      >
-        Generate
-      </button>
+      <Button onClick={handleSubmit}>Generate</Button>
       <div className="mt-4">
         <h2 className="font-semibold">Response:</h2>
         <pre className="bg-gray-500 p-2">{response}</pre>
