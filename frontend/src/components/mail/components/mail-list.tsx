@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/registry/new-york/ui/badge";
 import { ScrollArea } from "@/registry/new-york/ui/scroll-area";
 import { Separator } from "@/registry/new-york/ui/separator";
-import { Mail } from "@/components/mail/data";
+import { Mail } from "@/components/mail/data/data";
 import { useMail } from "@/components/mail/use-mail";
 
 interface MailListProps {
@@ -35,7 +35,7 @@ export function MailList({ items }: MailListProps) {
             <div className="flex w-full flex-col gap-1">
               <div className="flex items-center">
                 <div className="flex items-center gap-2">
-                  <div className="font-semibold">{item.name}</div>
+                  <div className="font-semibold">{item.sender}</div>
                   {!item.read && (
                     <span className="flex h-2 w-2 rounded-full bg-blue-600" />
                   )}
@@ -48,7 +48,7 @@ export function MailList({ items }: MailListProps) {
                       : "text-muted-foreground"
                   )}
                 >
-                  {formatDistanceToNow(new Date(item.date), {
+                  {formatDistanceToNow(new Date(item.timestamp), {
                     addSuffix: true,
                   })}
                 </div>
@@ -56,7 +56,7 @@ export function MailList({ items }: MailListProps) {
               <div className="text-xs font-medium">{item.subject}</div>
             </div>
             <div className="line-clamp-2 text-xs text-muted-foreground">
-              {item.text.substring(0, 300)}
+              {item.body.substring(0, 300)}
             </div>
             {item.labels.length ? (
               <div className="flex items-center gap-2">

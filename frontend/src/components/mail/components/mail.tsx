@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import {
   AlertCircle,
@@ -33,8 +31,9 @@ import { TooltipProvider } from "@/registry/new-york/ui/tooltip";
 import { AccountSwitcher } from "@/components/mail/components/account-switcher";
 import { MailDisplay } from "@/components/mail/components/mail-display";
 import { MailList } from "@/components/mail/components/mail-list";
+import { GranitePanel } from "@/components/mail/components/granite-panel";
 import { Nav } from "@/components/mail/components/nav";
-import { type Mail } from "@/components/mail/data";
+import { type Mail } from "@/components/mail/data/data";
 import { useMail } from "@/components/mail/use-mail";
 
 interface MailProps {
@@ -52,7 +51,7 @@ interface MailProps {
 export function Mail({
   accounts,
   mails,
-  defaultLayout = [0, 17, 56],
+  defaultLayout = [12, 18, 40, 30],
   defaultCollapsed = true,
   navCollapsedSize,
 }: MailProps) {
@@ -220,6 +219,14 @@ export function Mail({
         <ResizableHandle />
         <ResizablePanel defaultSize={defaultLayout[2]} minSize={30}>
           <MailDisplay
+            mail={mails.find((item) => item.id === mail.selected) || null}
+          />
+        </ResizablePanel>
+
+        {/* Granite Panel */}
+        <ResizableHandle />
+        <ResizablePanel defaultSize={defaultLayout[3]} minSize={25}>
+          <GranitePanel
             mail={mails.find((item) => item.id === mail.selected) || null}
           />
         </ResizablePanel>

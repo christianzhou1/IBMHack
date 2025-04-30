@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Mail } from "@/components/mail/components/mail";
-import { accounts, mails } from "@/components/mail/data";
+import { accounts, mails } from "@/components/mail/data/data";
 
 function getCookie(name: string): string | undefined {
   const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
