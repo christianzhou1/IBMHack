@@ -1,4 +1,5 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import { ScrollArea } from "@/registry/new-york/ui/scroll-area";
 import { Separator } from "@/registry/new-york/ui/separator";
 import { Textarea } from "@/registry/new-york/ui/textarea";
@@ -20,13 +21,50 @@ export function GranitePanel({ mail }: GranitePanelProps) {
     if (!input.trim() || !mail) return;
 
     const prompt = `
-      Email Subject: ${mail.subject}
-      Sender: ${mail.sender}
-      Body: ${mail.body}
-      Attachments: ${mail.attachments.map((a) => a.filename).join(", ")}
+  You are an email assistant embedded in a productivity app. You are helping the user understand and act on a specific email and its attachments.
   
-      User question: ${input}
-    `;
+  You have access to:
+  - The email's subject, sender, body, and metadata
+  - A list of attachment names and the extracted text from each
+  - A deadline and task priority if available
+  
+  Your goal is to:
+  - Answer questions only based on the information provided
+  - Never guess beyond the email or attachments
+  - Help the user identify the task, understand the request, or break down next steps
+  
+  Here is the data:
+  
+  ---
+  
+  📬 Email Metadata:
+  Subject: ${mail.subject}
+  Sender: ${mail.sender}
+  Sent at: ${mail.timestamp}
+  
+  📄 Email Body:
+  ${mail.body}
+  
+  📎 Attachments:
+  ${mail.attachments
+    .map((a) => `- ${a.filename} (${a.filetype})\n `)
+    .join("\n\n")}
+  
+  📅 Deadline: ${mail.deadline ?? "Not specified"}
+  ⭐ Priority: ${mail.metadata.priority ?? "Not specified"}
+  
+  ---
+  
+  User's question: "${input}"
+  
+  Provide a clear, multi-paragraph response that includes:
+  - What the task is
+  - What to focus on in the attachments
+  - Any deadlines, formatting, or delivery instructions
+  - Steps the user can follow to begin
+
+  Only use the information from the email and attachments.
+  `;
 
     try {
       const response = await fetch("/api/watsonx", {
@@ -80,9 +118,9 @@ export function GranitePanel({ mail }: GranitePanelProps) {
       <div className="flex flex-col flex-1 overflow-hidden">
         <ScrollArea className="flex-1 p-4 space-y-2">
           {messages.map((msg, i) => (
-            <p key={i} className="text-sm whitespace-pre-wrap">
-              {msg}
-            </p>
+            <div className="prose prose-sm dark:prose-invert bg-slate-100 border border-[#ddd3b1] text-muted-foreground p-4 rounded-md mb-2 shadow-md">
+              <ReactMarkdown key={i}>{msg}</ReactMarkdown>
+            </div>
           ))}
         </ScrollArea>
         <Separator />

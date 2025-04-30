@@ -28,7 +28,7 @@ model = ModelInference(
   api_client=client,
   project_id=project_id,
   params = {
-      "max_new_tokens": 100
+      "max_new_tokens": 300
   }
 )
 

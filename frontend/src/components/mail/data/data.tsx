@@ -78,6 +78,95 @@ export const mails = [
     read: true,
     labels: ["work", "creative"],
   },
+  {
+    id: "email003",
+    sender: "Rachel Lin <rachel.lin@company.com>",
+    subject: "Follow-up: Cross-check Q4 summary with external audit file",
+    body: "Hi again,\n\nAfter reviewing your initial summary, can you **cross-check** your findings with the external auditor's report attached here? Discrepancies over $500 should be flagged in a new column.\n\nAlso, include these findings in the final report due Friday.\n\nThanks,\nRachel",
+    attachments: [
+      {
+        filename: "External_Audit_Report_Q4.pdf",
+        filetype: "pdf",
+        content: "<filepath_or_base64>",
+        summary_hint: "comparison_target",
+      },
+    ],
+    timestamp: "2025-04-30T10:00:00-04:00",
+    deadline: "2025-05-02T16:00:00-04:00",
+    metadata: {
+      priority: "high",
+      special_instructions: [
+        "Add discrepancy column",
+        "Compare to previous summary",
+      ],
+      status: "pending",
+    },
+    read: false,
+    labels: ["work", "budget", "audit"],
+  },
+  {
+    id: "email004",
+    sender: "Kevin Zhou <kzhou@creativeplus.io>",
+    subject: "New style guide + update previous brochure draft",
+    body: "Hi,\n\nWe've released a new brand style guide (attached) that needs to be applied to the brochure you're working on. Update your current layout to reflect the changes in typography and spacing.\n\nLet me know if Rachel's PDF editor license is still needed — we may be able to upgrade.\n\nRegards,\nKevin",
+    attachments: [
+      {
+        filename: "Brand_Guide_2025.pdf",
+        filetype: "pdf",
+        content: "<filepath_or_base64>",
+        summary_hint: "design_reference",
+      },
+    ],
+    timestamp: "2025-04-30T15:45:00-04:00",
+    deadline: "2025-05-05T12:00:00-04:00",
+    metadata: {
+      priority: "medium",
+      special_instructions: [
+        "Apply typography changes",
+        "Verify PDF compatibility",
+      ],
+      status: "pending",
+    },
+    read: false,
+    labels: ["creative", "design"],
+  },
+  {
+    id: "email005",
+    sender: "Emma Johnson <emma.johnson@example.com>",
+    subject: "Shared resource folder with older vendor summaries",
+    body: "Hey team,\n\nI've compiled prior vendor summaries from last year for reference. These might help as you work through the Q4 reconciliation and audit.\n\nLet me know if you need access to prior invoice snapshots.\n\nCheers,\nEmma",
+    attachments: [
+      {
+        filename: "Vendor_Summary_2024.docx",
+        filetype: "docx",
+        content: "<filepath_or_base64>",
+        summary_hint: "historical_reference",
+      },
+    ],
+    timestamp: "2025-04-29T16:20:00-04:00",
+    metadata: {
+      priority: "low",
+      special_instructions: ["Use for comparison only"],
+      status: "archived",
+    },
+    read: true,
+    labels: ["reference", "vendor", "audit"],
+  },
+  {
+    id: "email006",
+    sender: "Noah Martinez <noah.martinez@example.com>",
+    subject: "Missing reconciliation formula in Excel sheet?",
+    body: "Hey,\n\nNoticed the reconciliation Excel in Rachel’s email might be missing a formula in column G — the totals aren’t auto-updating. Just flagging this in case it affects your summary.\n\nLet me know if you’d like me to run a script to fix it.\n\nBest,\nNoah",
+    attachments: [],
+    timestamp: "2025-04-30T12:10:00-04:00",
+    metadata: {
+      priority: "medium",
+      special_instructions: ["Check formulas in spreadsheet"],
+      status: "flagged",
+    },
+    read: false,
+    labels: ["work", "bug", "audit"],
+  },
 ];
 export type Mail = (typeof mails)[number];
 
