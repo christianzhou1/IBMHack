@@ -19,9 +19,9 @@ export default function MailPage() {
   }, []);
 
   return (
-    <>
+    <div className="h-screen">
       <div className="md:hidden">{/* Mobile fallback UI */}</div>
-      <div className="hidden flex-col md:flex">
+      <div className="h-screen md:flex bg-black">
         <Mail
           accounts={accounts}
           mails={mails}
@@ -30,6 +30,6 @@ export default function MailPage() {
           navCollapsedSize={4}
         />
       </div>
-    </>
+    </div>
   );
 }
