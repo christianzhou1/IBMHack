@@ -38,6 +38,8 @@ def watsonx_generate():
     data = request.json
     prompt = data.get("prompt")
     
+    print("Prompt received:", prompt) 
+    
     try:
         result = model.generate_text(prompt)
         return jsonify({"response": result})

@@ -16,13 +16,51 @@ export function GranitePanel({ mail }: GranitePanelProps) {
   if (!mail)
     return <div className="p-4 text-muted-foreground">No email selected</div>;
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const handleSend = async () => {
+    if (!input.trim() || !mail) return;
 
-    // Simulated response from the AI model
-    const aiResponse = `You asked: "${input}"\nBased on attachments or metadata, here's a simulated answer.`;
+    const prompt = `
+      Email Subject: ${mail.subject}
+      Sender: ${mail.sender}
+      Body: ${mail.body}
+      Attachments: ${mail.attachments.map((a) => a.filename).join(", ")}
+  
+      User question: ${input}
+    `;
 
-    setMessages((prev) => [...prev, `User: ${input}`, `AI: ${aiResponse}`]);
+    try {
+      const response = await fetch("/api/watsonx", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        setMessages((prev) => [
+          ...prev,
+          `User: ${input}`,
+          `AI: Error: ${data.error}`,
+        ]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          `User: ${input}`,
+          `AI: ${data.response}`,
+        ]);
+      }
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setMessages((prev) => [
+        ...prev,
+        `User: ${input}`,
+        `AI: Failed to reach backend: ${err}`,
+      ]);
+    }
+
     setInput("");
   };
 
