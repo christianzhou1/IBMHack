@@ -1,24 +1,22 @@
-"use client"
+import { Link } from "react-router-dom";
+import { LucideIcon } from "lucide-react";
 
-import Link from "next/link"
-import { LucideIcon } from "lucide-react"
-
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/registry/default/ui/button"
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/registry/default/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/registry/new-york/ui/tooltip"
+} from "@/registry/new-york/ui/tooltip";
 
 interface NavProps {
-  isCollapsed: boolean
+  isCollapsed: boolean;
   links: {
-    title: string
-    label?: string
-    icon: LucideIcon
-    variant: "default" | "ghost"
-  }[]
+    title: string;
+    label?: string;
+    icon: LucideIcon;
+    variant: "default" | "ghost";
+  }[];
 }
 
 export function Nav({ links, isCollapsed }: NavProps) {
@@ -33,7 +31,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
             <Tooltip key={index} delayDuration={0}>
               <TooltipTrigger asChild>
                 <Link
-                  href="#"
+                  to="#"
                   className={cn(
                     buttonVariants({ variant: link.variant, size: "icon" }),
                     "h-9 w-9",
@@ -57,7 +55,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
           ) : (
             <Link
               key={index}
-              href="#"
+              to="#"
               className={cn(
                 buttonVariants({ variant: link.variant, size: "sm" }),
                 link.variant === "default" &&
@@ -83,5 +81,5 @@ export function Nav({ links, isCollapsed }: NavProps) {
         )}
       </nav>
     </div>
-  )
+  );
 }

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import MailPage from "@/components/mail/page";
+// import { Mail } from "./components/mail/components/mail";
 
 function App() {
   const [prompt, setPrompt] = useState("");
@@ -38,6 +40,8 @@ function App() {
         <h2 className="font-semibold">Response:</h2>
         <pre className="bg-gray-500 p-2">{response}</pre>
       </div>
+
+      <MailPage />
     </div>
   );
 }

@@ -1,34 +1,26 @@
-import { cookies } from "next/headers"
-import Image from "next/image"
+import { useEffect, useState } from "react";
+import { Mail } from "@/components/mail/components/mail";
+import { accounts, mails } from "@/components/mail/data";
 
-import { Mail } from "@/app/(app)/examples/mail/components/mail"
-import { accounts, mails } from "@/app/(app)/examples/mail/data"
+function getCookie(name: string): string | undefined {
+  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
+  return match?.[2];
+}
 
 export default function MailPage() {
-  const layout = cookies().get("react-resizable-panels:layout:mail")
-  const collapsed = cookies().get("react-resizable-panels:collapsed")
+  const [defaultLayout, setDefaultLayout] = useState();
+  const [defaultCollapsed, setDefaultCollapsed] = useState();
 
-  const defaultLayout = layout ? JSON.parse(layout.value) : undefined
-  const defaultCollapsed = collapsed ? JSON.parse(collapsed.value) : undefined
+  useEffect(() => {
+    const layout = getCookie("react-resizable-panels:layout:mail");
+    const collapsed = getCookie("react-resizable-panels:collapsed");
+    if (layout) setDefaultLayout(JSON.parse(layout));
+    if (collapsed) setDefaultCollapsed(JSON.parse(collapsed));
+  }, []);
 
   return (
     <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/mail-dark.png"
-          width={1280}
-          height={727}
-          alt="Mail"
-          className="hidden dark:block"
-        />
-        <Image
-          src="/examples/mail-light.png"
-          width={1280}
-          height={727}
-          alt="Mail"
-          className="block dark:hidden"
-        />
-      </div>
+      <div className="md:hidden">{/* Mobile fallback UI */}</div>
       <div className="hidden flex-col md:flex">
         <Mail
           accounts={accounts}
@@ -39,5 +31,5 @@ export default function MailPage() {
         />
       </div>
     </>
-  )
+  );
 }
