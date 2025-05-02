@@ -1,10 +1,12 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { ScrollArea } from "@/components/ui/new-york/scroll-area";
-import { Separator } from "@/components/ui/new-york/separator";
+/* import { Separator } from "@/components/ui/new-york/separator"; */
 import { Textarea } from "@/components/ui/new-york/textarea";
 import { Button } from "@/components/ui/new-york/button";
 import { Mail } from "@/components/mail/data/data";
+import { Badge } from "@/components/ui/new-york/badge";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 
 interface GranitePanelProps {
   mail: Mail | null;
@@ -103,15 +105,52 @@ export function GranitePanel({ mail }: GranitePanelProps) {
   };
 
   return (
-    <div className="flex h-full flex-col border-l bg-muted/10">
-      {/* Email summary */}
+    <div className="flex h-full flex-col bg-muted/10 cursor-default">
+      {/* Email Info */}
       <div className="p-4 border-b">
-        <h2 className="text-lg font-semibold">Granite Summary</h2>
-        <p className="text-sm text-muted-foreground">Subject: {mail.subject}</p>
-        <p className="text-sm text-muted-foreground">From: {mail.sender}</p>
-        <p className="text-sm text-muted-foreground">
+        <h2 className="text-2xl font-bold">Granite Summary</h2>
+        <div className="flex flex-col gap-2 mt-2 transition-all">
+          <Badge variant="outline" className="text-md">
+            Subject: {mail.subject}
+          </Badge>
+          <Badge variant="outline" className="text-md">
+            From: {mail.sender}
+          </Badge>
+          <Badge variant="outline" className="text-md">
+            {formatDistanceToNow(new Date(mail.timestamp), {
+              addSuffix: true,
+            })}
+          </Badge>
+
+          {/* <p className="text-md text-foreground">Subject: {mail.subject}</p> */}
+          {/* <p className="text-md text-foreground">From: {mail.sender}</p> */}
+          {/* <p className="text-md text-foreground">
           Attachments: {mail.attachments.length}
-        </p>
+        </p> */}
+        </div>
+      </div>
+
+      {/* Attachments */}
+      <div className="p-4 border-b">
+        <div className="flex flex-col gap-2 text-lg font-semibold">
+          Attachments
+          {mail.attachments.length ? (
+            <div className="text-md flex flex-row gap-2">
+              {mail.attachments.map((a) => (
+                <Badge
+                  key={a.filename}
+                  variant="outline"
+                  className="text-md transition-all p-2 flex-col items-start hover:bg-muted"
+                >
+                  <div>{a.filename}</div>
+                  <div className="text-muted-foreground font-normal">
+                    {a.filetype} file
+                  </div>
+                </Badge>
+              ))}
+            </div>
+          ) : null}
+        </div>
       </div>
 
       {/* Chat Area */}
@@ -123,7 +162,7 @@ export function GranitePanel({ mail }: GranitePanelProps) {
             </div>
           ))}
         </ScrollArea>
-        <Separator />
+
         <div className="p-3 border-t flex gap-2">
           <Textarea
             placeholder="Ask about this email..."
