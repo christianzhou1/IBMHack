@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/new-york/button";
 import MailPage from "@/components/mail/page";
 // import { Mail } from "./components/mail/components/mail";
 

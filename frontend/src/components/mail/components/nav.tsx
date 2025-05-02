@@ -7,7 +7,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/registry/new-york/ui/tooltip";
+} from "@/components/ui/new-york/tooltip";
 
 interface NavProps {
   isCollapsed: boolean;

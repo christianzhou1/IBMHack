@@ -21,7 +21,7 @@ export default function MailPage() {
   return (
     <div className="h-screen w-screen">
       <div className="md:hidden">{/* Mobile fallback UI */}</div>
-      <div className="h-screen md:flex">
+      <div className="h-screen w-screen md:flex">
         <Mail
           accounts={accounts}
           mails={mails}

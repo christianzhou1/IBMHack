@@ -14,20 +14,20 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Input } from "@/registry/new-york/ui/input";
+import { Input } from "@/components/ui/new-york/input";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/registry/new-york/ui/resizable";
-import { Separator } from "@/registry/new-york/ui/separator";
+} from "@/components/ui/new-york/resizable";
+import { Separator } from "@/components/ui/new-york/separator";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/registry/new-york/ui/tabs";
-import { TooltipProvider } from "@/registry/new-york/ui/tooltip";
+} from "@/components/ui/new-york/tabs";
+import { TooltipProvider } from "@/components/ui/new-york/tooltip";
 import { AccountSwitcher } from "@/components/mail/components/account-switcher";
 import { MailDisplay } from "@/components/mail/components/mail-display";
 import { MailList } from "@/components/mail/components/mail-list";
@@ -67,7 +67,7 @@ export function Mail({
             sizes
           )}`;
         }}
-        className="h-full max-h-screen items-stretch"
+        className="h-full max-h-screen w-screen items-stretch"
       >
         <ResizablePanel
           defaultSize={defaultLayout[0]}

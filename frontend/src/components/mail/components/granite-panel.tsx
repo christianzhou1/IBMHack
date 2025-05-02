@@ -1,9 +1,9 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import { ScrollArea } from "@/registry/new-york/ui/scroll-area";
-import { Separator } from "@/registry/new-york/ui/separator";
-import { Textarea } from "@/registry/new-york/ui/textarea";
-import { Button } from "@/registry/new-york/ui/button";
+import { ScrollArea } from "@/components/ui/new-york/scroll-area";
+import { Separator } from "@/components/ui/new-york/separator";
+import { Textarea } from "@/components/ui/new-york/textarea";
+import { Button } from "@/components/ui/new-york/button";
 import { Mail } from "@/components/mail/data/data";
 
 interface GranitePanelProps {
