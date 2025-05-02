@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Mail } from "@/components/mail/components/mail";
-import { accounts, mails } from "@/components/mail/data/data";
+import { accounts, mails } from "@/types/mail";
 
 function getCookie(name: string): string | undefined {
   const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
@@ -21,7 +21,7 @@ export default function MailPage() {
   return (
     <div className="h-screen w-screen">
       <div className="md:hidden">{/* Mobile fallback UI */}</div>
-      <div className="h-screen w-screen md:flex">
+      <div className="h-screen w-screen md:flex flex-col">
         <Mail
           accounts={accounts}
           mails={mails}

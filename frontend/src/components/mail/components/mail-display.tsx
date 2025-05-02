@@ -37,12 +37,13 @@ import {
 import { Separator } from "@/components/ui/new-york/separator";
 import { Switch } from "@/components/ui/new-york/switch";
 import { Textarea } from "@/components/ui/new-york/textarea";
+import { ScrollArea } from "@/components/ui/new-york/scroll-area";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/new-york/tooltip";
-import { Mail } from "@/components/mail/data/data";
+import { Mail } from "@/types/mail";
 
 interface MailDisplayProps {
   mail: Mail | null;
@@ -52,7 +53,7 @@ export function MailDisplay({ mail }: MailDisplayProps) {
   const today = new Date();
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col overflow-y-auto">
       <div className="flex items-center p-2">
         <div className="flex items-center gap-2">
           <Tooltip>

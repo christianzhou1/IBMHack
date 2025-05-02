@@ -1,0 +1,12 @@
+﻿.\backend
+   ├──app
+   │  ├──services
+   │  │  └──__pycache__
+   │  └──__pycache__
+   └──venv
+      ├──Include
+      ├──Lib
+      │  └──site-packages
+      └──Scripts
+         └──__pycache__
+

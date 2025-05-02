@@ -1,0 +1,189 @@
+﻿.\
+   ├──backend
+   │  ├──app
+   │  │  ├──services
+   │  │  │  ├──__pycache__
+   │  │  │  │  └──summarizer.cpython-312.pyc
+   │  │  │  └──summarizer.py
+   │  │  ├──__pycache__
+   │  │  │  ├──routes.cpython-312.pyc
+   │  │  │  ├──__init__.cpython-311.pyc
+   │  │  │  └──__init__.cpython-312.pyc
+   │  │  ├──routes.py
+   │  │  └──__init__.py
+   │  ├──venv
+   │  │  ├──Include
+   │  │  ├──Lib
+   │  │  │  └──site-packages
+   │  │  ├──Scripts
+   │  │  │  ├──__pycache__
+   │  │  │  │  └──jp.cpython-312.pyc
+   │  │  │  ├──activate
+   │  │  │  ├──activate.bat
+   │  │  │  ├──Activate.ps1
+   │  │  │  ├──deactivate.bat
+   │  │  │  ├──dotenv.exe
+   │  │  │  ├──f2py.exe
+   │  │  │  ├──flask.exe
+   │  │  │  ├──httpx.exe
+   │  │  │  ├──jp.py
+   │  │  │  ├──normalizer.exe
+   │  │  │  ├──numpy-config.exe
+   │  │  │  ├──pip.exe
+   │  │  │  ├──pip3.12.exe
+   │  │  │  ├──pip3.exe
+   │  │  │  ├──python.exe
+   │  │  │  ├──pythonw.exe
+   │  │  │  └──tabulate.exe
+   │  │  └──pyvenv.cfg
+   │  ├──.env
+   │  ├──requirements.txt
+   │  └──run.py
+   ├──backup
+   ├──frontend
+   │  ├──node_modules
+   │  ├──public
+   │  │  └──vite.svg
+   │  ├──src
+   │  │  ├──assets
+   │  │  │  └──react.svg
+   │  │  ├──components
+   │  │  │  ├──dashboard
+   │  │  │  │  └──dashboard-panel.tsx
+   │  │  │  ├──granite
+   │  │  │  │  └──granite-panel.tsx
+   │  │  │  ├──mail
+   │  │  │  │  ├──components
+   │  │  │  │  │  ├──account-switcher.tsx
+   │  │  │  │  │  ├──mail-display.tsx
+   │  │  │  │  │  ├──mail-list.tsx
+   │  │  │  │  │  ├──mail.tsx
+   │  │  │  │  │  └──nav.tsx
+   │  │  │  │  ├──page.tsx
+   │  │  │  │  └──use-mail.ts
+   │  │  │  └──ui
+   │  │  │     ├──default
+   │  │  │     │  ├──accordion.tsx
+   │  │  │     │  ├──alert-dialog.tsx
+   │  │  │     │  ├──alert.tsx
+   │  │  │     │  ├──aspect-ratio.tsx
+   │  │  │     │  ├──avatar.tsx
+   │  │  │     │  ├──badge.tsx
+   │  │  │     │  ├──breadcrumb.tsx
+   │  │  │     │  ├──button.tsx
+   │  │  │     │  ├──calendar.tsx
+   │  │  │     │  ├──card.tsx
+   │  │  │     │  ├──carousel.tsx
+   │  │  │     │  ├──chart.tsx
+   │  │  │     │  ├──checkbox.tsx
+   │  │  │     │  ├──collapsible.tsx
+   │  │  │     │  ├──command.tsx
+   │  │  │     │  ├──context-menu.tsx
+   │  │  │     │  ├──dialog.tsx
+   │  │  │     │  ├──drawer.tsx
+   │  │  │     │  ├──dropdown-menu.tsx
+   │  │  │     │  ├──form.tsx
+   │  │  │     │  ├──hover-card.tsx
+   │  │  │     │  ├──input-otp.tsx
+   │  │  │     │  ├──input.tsx
+   │  │  │     │  ├──label.tsx
+   │  │  │     │  ├──menubar.tsx
+   │  │  │     │  ├──navigation-menu.tsx
+   │  │  │     │  ├──pagination.tsx
+   │  │  │     │  ├──popover.tsx
+   │  │  │     │  ├──progress.tsx
+   │  │  │     │  ├──radio-group.tsx
+   │  │  │     │  ├──resizable.tsx
+   │  │  │     │  ├──scroll-area.tsx
+   │  │  │     │  ├──select.tsx
+   │  │  │     │  ├──separator.tsx
+   │  │  │     │  ├──sheet.tsx
+   │  │  │     │  ├──sidebar.tsx
+   │  │  │     │  ├──skeleton.tsx
+   │  │  │     │  ├──slider.tsx
+   │  │  │     │  ├──sonner.tsx
+   │  │  │     │  ├──switch.tsx
+   │  │  │     │  ├──table.tsx
+   │  │  │     │  ├──tabs.tsx
+   │  │  │     │  ├──textarea.tsx
+   │  │  │     │  ├──toggle-group.tsx
+   │  │  │     │  ├──toggle.tsx
+   │  │  │     │  └──tooltip.tsx
+   │  │  │     └──new-york
+   │  │  │        ├──accordion.tsx
+   │  │  │        ├──alert-dialog.tsx
+   │  │  │        ├──alert.tsx
+   │  │  │        ├──aspect-ratio.tsx
+   │  │  │        ├──avatar.tsx
+   │  │  │        ├──badge.tsx
+   │  │  │        ├──breadcrumb.tsx
+   │  │  │        ├──button.tsx
+   │  │  │        ├──calendar.tsx
+   │  │  │        ├──card.tsx
+   │  │  │        ├──carousel.tsx
+   │  │  │        ├──chart.tsx
+   │  │  │        ├──checkbox.tsx
+   │  │  │        ├──collapsible.tsx
+   │  │  │        ├──command.tsx
+   │  │  │        ├──context-menu.tsx
+   │  │  │        ├──dialog.tsx
+   │  │  │        ├──drawer.tsx
+   │  │  │        ├──dropdown-menu.tsx
+   │  │  │        ├──form.tsx
+   │  │  │        ├──hover-card.tsx
+   │  │  │        ├──input-otp.tsx
+   │  │  │        ├──input.tsx
+   │  │  │        ├──label.tsx
+   │  │  │        ├──menubar.tsx
+   │  │  │        ├──navigation-menu.tsx
+   │  │  │        ├──pagination.tsx
+   │  │  │        ├──popover.tsx
+   │  │  │        ├──progress.tsx
+   │  │  │        ├──radio-group.tsx
+   │  │  │        ├──resizable.tsx
+   │  │  │        ├──scroll-area.tsx
+   │  │  │        ├──select.tsx
+   │  │  │        ├──separator.tsx
+   │  │  │        ├──sheet.tsx
+   │  │  │        ├──sidebar.tsx
+   │  │  │        ├──skeleton.tsx
+   │  │  │        ├──slider.tsx
+   │  │  │        ├──sonner.tsx
+   │  │  │        ├──switch.tsx
+   │  │  │        ├──table.tsx
+   │  │  │        ├──tabs.tsx
+   │  │  │        ├──textarea.tsx
+   │  │  │        ├──toggle-group.tsx
+   │  │  │        ├──toggle.tsx
+   │  │  │        └──tooltip.tsx
+   │  │  ├──hooks
+   │  │  │  └──use-mobile.ts
+   │  │  ├──lib
+   │  │  │  └──utils.ts
+   │  │  ├──types
+   │  │  │  ├──data-old.tsx
+   │  │  │  ├──mail.tsx
+   │  │  │  └──task.ts
+   │  │  ├──App.tsx
+   │  │  ├──globals.css
+   │  │  ├──index.css
+   │  │  ├──main.tsx
+   │  │  └──vite-env.d.ts
+   │  ├──.gitignore
+   │  ├──components.json
+   │  ├──eslint.config.js
+   │  ├──index.html
+   │  ├──package-lock.json
+   │  ├──package.json
+   │  ├──README.md
+   │  ├──tailwind.config.js
+   │  ├──tsconfig.app.json
+   │  ├──tsconfig.json
+   │  ├──tsconfig.node.json
+   │  └──vite.config.ts
+   ├──.gitignore
+   ├──GetTree.ps1
+   ├──GetTree.txt
+   ├──GetTreeBackend.txt
+   └──IBM-Granite-Lean-AI-Solutions-Hackathon-April-2025.pdf
+

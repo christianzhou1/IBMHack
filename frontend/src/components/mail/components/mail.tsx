@@ -31,11 +31,15 @@ import { TooltipProvider } from "@/components/ui/new-york/tooltip";
 import { AccountSwitcher } from "@/components/mail/components/account-switcher";
 import { MailDisplay } from "@/components/mail/components/mail-display";
 import { MailList } from "@/components/mail/components/mail-list";
-import { GranitePanel } from "@/components/mail/components/granite-panel";
+import { GranitePanel } from "@/components/granite/granite-panel";
+import { DashboardPanel } from "@/components/dashboard/dashboard-panel";
 import { Nav } from "@/components/mail/components/nav";
-import { type Mail } from "@/components/mail/data/data";
+import { type Mail } from "@/types/mail";
 import { useMail } from "@/components/mail/use-mail";
-
+/* import { type Task } from "@/types/task"; */
+import { useTasks } from "@/hooks/use-tasks";
+/* import { Spinner } from "@/components/ui/new-york/spinner";
+ */
 interface MailProps {
   accounts: {
     label: string;
@@ -51,12 +55,18 @@ interface MailProps {
 export function Mail({
   accounts,
   mails,
-  defaultLayout = [0, 25, 10],
+  defaultLayout = [0, 30, 45, 45],
   defaultCollapsed = true,
   navCollapsedSize,
 }: MailProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
   const [mail] = useMail();
+  const { tasks, isLoading, error, fetchTasks } = useTasks(mails);
+  React.useEffect(() => {
+    if (process.env.NODE_ENV != "development") {
+      fetchTasks();
+    }
+  }, [fetchTasks]);
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -67,8 +77,9 @@ export function Mail({
             sizes
           )}`;
         }}
-        className="h-full max-h-screen w-screen items-stretch"
+        className="flex-1 max-h-screen w-screen items-stretch"
       >
+        {/* Nav Panel */}
         <ResizablePanel
           defaultSize={defaultLayout[0]}
           collapsedSize={navCollapsedSize}
@@ -180,25 +191,31 @@ export function Mail({
           />
         </ResizablePanel>
         <ResizableHandle />
-        {/* Granite Panel */}
+        {/* Dashboard Panel */}
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={25}>
+          <DashboardPanel tasks={tasks} mails={mails} />
+        </ResizablePanel>
+        <ResizableHandle />
+        {/* Granite Panel */}
+        <ResizablePanel defaultSize={defaultLayout[2]} minSize={25}>
           <GranitePanel
             mail={mails.find((item) => item.id === mail.selected) || null}
           />
         </ResizablePanel>
         <ResizableHandle />
         {/* Mail Display and Mail List */}
-        <ResizablePanel defaultSize={defaultLayout[2]} minSize={30}>
+        <ResizablePanel
+          defaultSize={defaultLayout[3]}
+          minSize={30}
+          className="flex flex-col h-screen overflow-y-auto"
+        >
           <ResizablePanelGroup direction="vertical">
-            {/* Mail Display (Top Half) */}
-            <ResizablePanel defaultSize={60} minSize={40}>
-              <MailDisplay
-                mail={mails.find((item) => item.id === mail.selected) || null}
-              />
-            </ResizablePanel>
-            <ResizableHandle />
-            {/* Mail List (Bottom Half) */}
-            <ResizablePanel defaultSize={40} minSize={30}>
+            {/* Mail List Panel */}
+            <ResizablePanel
+              defaultSize={40}
+              minSize={20}
+              className="flex flex-col h-full overflow-auto"
+            >
               <Tabs defaultValue="all">
                 <div className="flex items-center px-4 py-2">
                   <h1 className="text-xl font-bold">Inbox</h1>
@@ -226,13 +243,31 @@ export function Mail({
                     </div>
                   </form>
                 </div>
-                <TabsContent value="all" className="m-0">
-                  <MailList items={mails} />
-                </TabsContent>
-                <TabsContent value="unread" className="m-0">
-                  <MailList items={mails.filter((item) => !item.read)} />
-                </TabsContent>
+                {/* Make sure the container for TabsContent is flexible and scrollable */}
+                <div className="flex-1 flex-col h-full overflow-y-auto">
+                  <div className="flex-1 flex-col h-full overflow-y-auto">
+                    <TabsContent
+                      value="all"
+                      className="flex-1 flex-col h-80 overflow-y-auto m-0"
+                    >
+                      <MailList items={mails} />
+                    </TabsContent>
+                    <TabsContent
+                      value="unread"
+                      className="flex-1 flex-col h-80 overflow-y-auto m-0"
+                    >
+                      <MailList items={mails.filter((item) => !item.read)} />
+                    </TabsContent>
+                  </div>
+                </div>
               </Tabs>
+            </ResizablePanel>
+            <ResizableHandle />
+            {/* Mail Display (Top Half) */}
+            <ResizablePanel defaultSize={60} minSize={40}>
+              <MailDisplay
+                mail={mails.find((item) => item.id === mail.selected) || null}
+              />
             </ResizablePanel>
           </ResizablePanelGroup>
         </ResizablePanel>

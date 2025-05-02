@@ -1,10 +1,11 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { ScrollArea } from "@/components/ui/new-york/scroll-area";
 /* import { Separator } from "@/components/ui/new-york/separator"; */
 import { Textarea } from "@/components/ui/new-york/textarea";
 import { Button } from "@/components/ui/new-york/button";
-import { Mail } from "@/components/mail/data/data";
+import { Mail } from "@/types/mail";
 import { Badge } from "@/components/ui/new-york/badge";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 
@@ -13,7 +14,25 @@ interface GranitePanelProps {
 }
 
 export function GranitePanel({ mail }: GranitePanelProps) {
-  const [messages, setMessages] = React.useState<string[]>([]);
+  const [messages, setMessages] = React.useState<string[]>([
+    "1",
+    "1",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    `Here are your tasks:
+
+- Review the Q4 financials
+- Summarize discrepancies
+- Send a PDF report by Friday`,
+  ]);
   const [input, setInput] = React.useState("");
 
   if (!mail)
@@ -34,6 +53,7 @@ export function GranitePanel({ mail }: GranitePanelProps) {
   - Answer questions only based on the information provided
   - Never guess beyond the email or attachments
   - Help the user identify the task, understand the request, or break down next steps
+  - Address the user in second person (you)
   
   Here is the data:
   
@@ -63,9 +83,9 @@ export function GranitePanel({ mail }: GranitePanelProps) {
   - What the task is
   - What to focus on in the attachments
   - Any deadlines, formatting, or delivery instructions
-  - Steps the user can follow to begin
+  - Steps the user can follow to begin, preferably in bullet points or numbered lists
 
-  Only use the information from the email and attachments.
+  Only use facts from the email and attachments. Do not make assumptions or guesses. Ask clarifying questions if needed.
   `;
 
     try {
@@ -131,7 +151,7 @@ export function GranitePanel({ mail }: GranitePanelProps) {
       </div>
 
       {/* Attachments */}
-      <div className="p-4 border-b">
+      <div className="p-4 border-b overflow-x-auto">
         <div className="flex flex-col gap-2 text-lg font-semibold">
           Attachments
           {mail.attachments.length ? (
@@ -154,15 +174,20 @@ export function GranitePanel({ mail }: GranitePanelProps) {
       </div>
 
       {/* Chat Area */}
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <ScrollArea className="flex-1 p-4 space-y-2">
+      <div className="flex flex-col h-full overflow-y-hidden">
+        {/* Scrollable messages area */}
+        <ScrollArea className="flex-1 px-8 mt-8 space-y-2 overflow-y-hidden">
           {messages.map((msg, i) => (
-            <div className="prose prose-sm dark:prose-invert bg-slate-100 border border-[#ddd3b1] text-muted-foreground p-4 rounded-md mb-2 shadow-md">
-              <ReactMarkdown key={i}>{msg}</ReactMarkdown>
+            <div
+              className="markdown prose prose-sm dark:prose-invert bg-slate-100 border border-[#ddd3b1] text-muted-foreground p-4 rounded-md mb-2 shadow-md"
+              key={i}
+            >
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg}</ReactMarkdown>
             </div>
           ))}
         </ScrollArea>
 
+        {/* Text input and send button */}
         <div className="p-3 border-t flex gap-2">
           <Textarea
             placeholder="Ask about this email..."
