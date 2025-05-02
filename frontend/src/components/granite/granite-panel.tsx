@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ScrollArea } from "@/components/ui/new-york/scroll-area";
@@ -8,37 +9,78 @@ import { Button } from "@/components/ui/new-york/button";
 import { Mail } from "@/types/mail";
 import { Badge } from "@/components/ui/new-york/badge";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
+import { TypingDots } from "@/components/ui/typing-dots";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/new-york/card";
+import { cn } from "@/lib/utils";
 
 interface GranitePanelProps {
   mail: Mail | null;
 }
 
 export function GranitePanel({ mail }: GranitePanelProps) {
-  const [messages, setMessages] = React.useState<string[]>([
-    "1",
-    "1",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    `Here are your tasks:
-
-- Review the Q4 financials
-- Summarize discrepancies
-- Send a PDF report by Friday`,
+  const [messages, setMessages] = React.useState<
+    { role: "user" | "ai"; content: string }[]
+  >([
+    { role: "user", content: "1" },
+    { role: "ai", content: "1" },
+    { role: "user", content: "1" },
+    { role: "ai", content: "1" },
+    { role: "user", content: "1" },
+    {
+      role: "user",
+      content: `# header
+      
+      Your goal is to:
+      
+  - Answer questions only based on the information provided
+  - Never guess beyond the email or attachments
+  - Help the user identify the task, understand the request, or break down next steps
+  - Address the user in second person (you)`,
+    },
+    { role: "user", content: "1" },
+    { role: "user", content: "1" },
   ]);
-  const [input, setInput] = React.useState("");
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!mail)
     return <div className="p-4 text-muted-foreground">No email selected</div>;
 
-  const handleSend = async () => {
+  /*   const sendMessage = async (message: string) => {
+    setInput("");
+    setMessages((prev) => [...prev, { role: "user", content: message }]);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/watsonx", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: message }),
+      });
+
+      const data = await response.json();
+      setMessages((prev) => [
+        ...prev,
+        { role: "ai", content: data.response || "Error: No response" },
+      ]);
+    } catch (err) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "ai", content: "Error: failed to fetch response." },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  }; */
+
+  const sendMessage = async (input: string) => {
     if (!input.trim() || !mail) return;
 
     const prompt = `
@@ -100,27 +142,22 @@ export function GranitePanel({ mail }: GranitePanelProps) {
       const data = await response.json();
 
       if (data.error) {
-        setMessages((prev) => [
-          ...prev,
-          `User: ${input}`,
-          `AI: Error: ${data.error}`,
-        ]);
+        setMessages((prev) => [...prev, { role: "ai", content: data.error }]);
       } else {
         setMessages((prev) => [
           ...prev,
-          `User: ${input}`,
-          `AI: ${data.response}`,
+          { role: "ai", content: data.response },
         ]);
       }
     } catch (err) {
       console.error("Fetch error:", err);
       setMessages((prev) => [
         ...prev,
-        `User: ${input}`,
-        `AI: Failed to reach backend: ${err}`,
+        { role: "ai", content: "Unknown error" },
       ]);
     }
 
+    setIsLoading(false);
     setInput("");
   };
 
@@ -174,29 +211,69 @@ export function GranitePanel({ mail }: GranitePanelProps) {
       </div>
 
       {/* Chat Area */}
-      <div className="flex flex-col h-full overflow-y-hidden">
+      <div className="flex flex-col h-full mb-2 overflow-y-hidden">
         {/* Scrollable messages area */}
-        <ScrollArea className="flex-1 px-8 mt-8 space-y-2 overflow-y-hidden">
+        <ScrollArea className="flex-1 flex-col px-4 py-3 space-y-3 mb-2 overflow-y-hidden">
           {messages.map((msg, i) => (
             <div
-              className="markdown prose prose-sm dark:prose-invert bg-slate-100 border border-[#ddd3b1] text-muted-foreground p-4 rounded-md mb-2 shadow-md"
-              key={i}
+              className={cn(
+                "flex flex-row w-full",
+                msg.role === "user" ? "justify-end" : "justify-start"
+              )}
             >
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg}</ReactMarkdown>
+              <Card
+                className={cn(
+                  "mb-2 w-1/2",
+                  msg.role === "user" ? "bg-blue-100" : "bg-muted"
+                )}
+              >
+                <CardContent>
+                  <div className="prose">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {msg.content}
+                    </ReactMarkdown>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           ))}
+
+          {isLoading && (
+            <div className="mr-auto bg-muted text-left text-muted-foreground px-4 py-2 rounded-md text-sm">
+              <TypingDots />
+            </div>
+          )}
         </ScrollArea>
 
         {/* Text input and send button */}
         <div className="p-3 border-t flex gap-2">
           <Textarea
-            placeholder="Ask about this email..."
-            className="flex-1"
-            rows={2}
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                if (input.trim()) sendMessage(input);
+              }
+            }}
+            placeholder="Ask about this email..."
+            className="flex-1 resize-none"
+            rows={2}
           />
-          <Button onClick={handleSend}>Send</Button>
+          <Button
+            onClick={() => {
+              if (input.trim()) {
+                sendMessage(input);
+                setIsLoading(true);
+                setMessages((prev) => {
+                  return [...prev, { role: "user", content: input }];
+                });
+              }
+            }}
+            disabled={isLoading}
+          >
+            Send
+          </Button>
         </div>
       </div>
     </div>

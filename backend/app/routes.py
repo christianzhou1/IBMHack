@@ -43,6 +43,7 @@ def watsonx_generate():
     
     try:
         result = model.generate_text(prompt)
+        print("\n\nWatsonX raw response:", result)
         return jsonify({"response": result})
     except Exception as e:
         return jsonify({"error": str(e)}), 500

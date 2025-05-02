@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/registry/default/ui/button";
+import { buttonVariants } from "@/components/ui/default/button";
 import {
   Tooltip,
   TooltipContent,
